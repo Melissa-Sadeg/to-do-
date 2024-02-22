@@ -14,4 +14,5 @@
 <!-- partie java script -->
 <script>
 import { ref } from "vue";
+const todos = ref([]);
 </script>
