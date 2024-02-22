@@ -10,8 +10,16 @@
     <button>Ajouter</button>
     <ol>
       <p v-if="todos.length === 0">pas de todo !</p>
-      <li v-for="element in todos" :key="element.id">
-        <input type="checkbox" @v-model="t.fini" />
+      <li
+        v-for="element in todos"
+        :key="element.id"
+        :class="{ fini: element.fini }"
+      >
+        <input
+          type="checkbox"
+          :checked="element.fini"
+          @change="valide(element, $event)"
+        />
         {{ element.details }}
         <button @click="deleteTodo(element)">Delete</button>
       </li>
@@ -51,4 +59,16 @@ function deleteTodo(todo) {
   todos.value = todos.value.filter((element) => element !== todo); // a l'aide du filtrage on supprime
   localStorage.setItem("todos", JSON.stringify(todos.value));
 }
+function valide(element, e) {
+  element.fini = e.target.checked;
+  localStorage.setItem("todos", JSON.stringify(todos.value));
+}
 </script>
+
+<style>
+.fini {
+  text-decoration: line-through;
+  color: blue;
+  background-color: rgb(244, 236, 225);
+}
+</style>
